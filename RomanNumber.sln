@@ -3,9 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{83568E3E-F6A4-4DCE-8581-F3CF24932722}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A8F14A03-6FDB-4E6F-82F6-ECC7FB034741}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumber.Tests", "RomanNumber.Tests\RomanNumber.Tests.csproj", "{03BE4B26-AE6B-43D3-B266-FD4255A3278D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumber.Core", "RomanNumber.Core\RomanNumber.Core.csproj", "{BCC67D77-93C4-49F2-9FF0-C157A05BE735}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03BE4B26-AE6B-43D3-B266-FD4255A3278D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03BE4B26-AE6B-43D3-B266-FD4255A3278D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03BE4B26-AE6B-43D3-B266-FD4255A3278D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03BE4B26-AE6B-43D3-B266-FD4255A3278D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCC67D77-93C4-49F2-9FF0-C157A05BE735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCC67D77-93C4-49F2-9FF0-C157A05BE735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCC67D77-93C4-49F2-9FF0-C157A05BE735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCC67D77-93C4-49F2-9FF0-C157A05BE735}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{03BE4B26-AE6B-43D3-B266-FD4255A3278D} = {A8F14A03-6FDB-4E6F-82F6-ECC7FB034741}
+		{BCC67D77-93C4-49F2-9FF0-C157A05BE735} = {83568E3E-F6A4-4DCE-8581-F3CF24932722}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CDF79669-7D90-4ECF-8D2D-902EE1D5F814}
