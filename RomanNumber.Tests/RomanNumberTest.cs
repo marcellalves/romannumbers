@@ -136,5 +136,21 @@ namespace RomanNumber.Tests
 
             Assert.Equal(39, arabicNumber);
         }
+
+        [Fact]
+        public void ToArabicNumber_RomanNumberInvalidFourOccurencesOfSameDigit_ThrowsException()
+        {
+            var romanNumber = new Core.RomanNumber();
+
+            Assert.Throws<Exception>(() => romanNumber.ToArabicNumber("XXXLX"));
+        }
+
+        [Fact]
+        public void ToArabicNumber_EmptyString_ThrowsException()
+        {
+            var romanNumber = new Core.RomanNumber();
+
+            Assert.Throws<Exception>(() => romanNumber.ToArabicNumber(""));
+        }
     }
 }

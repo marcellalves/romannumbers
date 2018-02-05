@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace RomanNumber.Core
@@ -9,62 +8,20 @@ namespace RomanNumber.Core
     {
         public int ToArabicNumber(string romanNumber)
         {
-            _romanNumber = romanNumber.ToCharArray();
-
-            if (!ValidRepetitionRules())
+            if (!IsValid(romanNumber))
             {
-                throw new Exception(_exceptionMessage);
+                throw new Exception("Invalid roman number");
             }
+
+            _romanNumber = romanNumber.ToCharArray();
 
             return ToArabicNumber(0, 0);
         }
 
-        private bool ValidRepetitionRules()
+        private bool IsValid(string romanNumber)
         {
-            var romanNumber = _romanNumber.ToList();
-
-            if (romanNumber.Count(d => d.Equals('D')) > 1 ||
-                romanNumber.Count(d => d.Equals('L')) > 1 ||
-                romanNumber.Count(d => d.Equals('V')) > 1)
-            {
-                return false;
-            }
-
-            if (romanNumber.Count(d => d.Equals('I')) > 4 ||
-                romanNumber.Count(d => d.Equals('X')) > 4 ||
-                romanNumber.Count(d => d.Equals('C')) > 4 ||
-                romanNumber.Count(d => d.Equals('M')) > 4)
-            {
-                return false;
-            }
-
-            var match = Regex.Match(romanNumber.ToString(), "I{3}|X{3}|C{3}|M{3}");
-            while (match.Success)
-            {
-                var matchIndex = match.Index;
-                if (_romanNumber.Length >= matchIndex + 4)
-                {
-                    if (_romanNumber[matchIndex + 4] == match.Value.ToCharArray()[0])
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        if (_romanNumber.Length >= matchIndex + 5)
-                        {
-                            if (_romanNumber[matchIndex + 5] == match.Value.ToCharArray()[0] 
-                                && RomanDigitToArabicNumber(_romanNumber[matchIndex + 5]) < RomanDigitToArabicNumber(match.Value.ToCharArray()[0]))
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
-
-                match = match.NextMatch();
-            }
-
-            return true;
+            return !string.IsNullOrEmpty(romanNumber) && 
+                    Regex.IsMatch(romanNumber, @"^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$");
         }
 
         private int ToArabicNumber(int next, int convertedArabicNumber)
@@ -87,7 +44,7 @@ namespace RomanNumber.Core
 
             if (leftValue < rightValue)
             {
-                convertedArabicNumber += RomanPairToArabicNumber(_romanNumber[next], _romanNumber[nextSibling]);
+                convertedArabicNumber += rightValue - leftValue;
                 return ToArabicNumber(next + 2, convertedArabicNumber);
             }
             else
@@ -99,27 +56,7 @@ namespace RomanNumber.Core
 
         private int RomanDigitToArabicNumber(char romanDigit)
         {
-            if (!_romanToArabic.TryGetValue(romanDigit, out int arabicNumber))
-            {
-                throw new Exception(_exceptionMessage);
-            }
-
-            return arabicNumber;
-        }
-
-        private int RomanPairToArabicNumber(char leftDigit, char rightDigit)
-        {
-            if (!IsValidPair(leftDigit.ToString() + rightDigit.ToString()))
-            {
-                throw new Exception(_exceptionMessage);
-            }
-
-            return RomanDigitToArabicNumber(rightDigit) - RomanDigitToArabicNumber(leftDigit);
-        }
-
-        private bool IsValidPair(string pair)
-        {
-            return !_invalidRomanPairs.Contains(pair);
+            return _romanToArabic[romanDigit];
         }
 
         private char[] _romanNumber;
@@ -134,26 +71,5 @@ namespace RomanNumber.Core
             { 'D', 500 },
             { 'M', 1000 }
         };
-
-        private readonly IList<string> _invalidRomanPairs = new List<string>
-        {
-            "IL",
-            "IC",
-            "ID",
-            "IM",
-            "XD",
-            "XM",
-            "VX",
-            "VL",
-            "VC",
-            "VD",
-            "VM",
-            "LC",
-            "LD",
-            "LM",
-            "DM"
-        };
-
-        private const string _exceptionMessage = "Invalid roman number";
     }
 }
