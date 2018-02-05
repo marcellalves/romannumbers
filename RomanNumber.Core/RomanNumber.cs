@@ -15,7 +15,7 @@ namespace RomanNumber.Core
 
             _romanNumber = romanNumber.ToCharArray();
 
-            return ToArabicNumber(0, 0);
+            return ToArabicNumber();
         }
 
         private bool IsValid(string romanNumber)
@@ -24,7 +24,7 @@ namespace RomanNumber.Core
                     Regex.IsMatch(romanNumber, @"^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$");
         }
 
-        private int ToArabicNumber(int next, int convertedArabicNumber)
+        private int ToArabicNumber(int next = 0, int convertedArabicNumber = 0)
         {
             var nextSibling = next + 1;
 
